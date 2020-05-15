@@ -4,7 +4,7 @@ setup(
     name="progrez",
     version="0.1",
     packages=find_packages(),
-    scripts=["color.py", "progrez.py", "typewriter.py"],
+    scripts=["./core/color.py", "./core/progrez.py", "./core/typewriter.py"],
 
     author="psoglav",
     author_email="psoglav.ih8u@gmail.com",
