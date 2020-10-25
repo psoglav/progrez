@@ -232,7 +232,7 @@ class Progrez(threading.Thread):
 
         self.__previus_progress = self.__current
         self.__current = (self.total, value) [value <= self.total]
-        self.__download_speed.append(self.__current - self.__previus_progress)
+        self.__download_speed.append(self.__current - self.__previus_progress) # doesnt work properly
 
         if self.full: self.stop()
 

@@ -3,7 +3,7 @@ import platform
 from time import sleep
 
 import term
-from progrez import Progrez
+from progrez.progrez import Progrez
 
 WIN = platform.system() == 'Windows'
 

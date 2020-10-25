@@ -1,12 +1,14 @@
+import os
 import random
 import requests
 from time import sleep
-from progrez import Progrez
-from progrez import Typewriter
-from progrez import Color
 
+from progrez.progrez import Progrez
+from progrez.typewriter import Typewriter
+from progrez.color import Color
 
-print('\n')
+os.system('cls' if os.name == 'nt' else 'clear')
+
 Typewriter.write('Welcome to the Hell!', centered=1, matrix=1, bgcolor=4, fps=60, delay=1)
 print()
 
@@ -19,7 +21,7 @@ bar1 = Progrez(' $percentage$% [$dye1$$progress$$erase$] Taking up some $dye2$in
               disapear=0, 
               blink=1)
 
-bar2 = Progrez(' $percentage$% [$dye$$progress$$erase$] Banishing $dye2$kind$erase$ souls $loader1$', 
+bar2 = Progrez(' $percentage$% [$dye$$progress$$erase$] Banishing $dye1$kind$erase$ souls $loader1$', 
               total=random.randint(1200, 2000), bar_width=30, disapear=0, blink=1)
 bar3 = Progrez(' $percentage$% [$dye1$$progress$$erase$] Inviting more $dye1$evils$erase$ $loader1$', 
               total=random.randint(1200, 2000), bar_width=30, disapear=0, blink=1)
