@@ -1,6 +1,9 @@
 # :globe_with_meridians: Progrez
 Heya! Here are the beautiful python progress bar and typewriter!
 
+### In action
+![Alt Text](https://s8.gifyu.com/images/2020-10-25-15-46-53.gif)
+
 ## The module includes following features
 * **Progrez**
 	* own markdown to create a progress bar;
@@ -30,6 +33,4 @@ $erase$ | stops painting.
 
 > Notice: you are able to rename each of keywords whatever you want using the global variables. For instance: `Progrez.PAINT = 'dye'`
 
-### Progrez in action
-![Alt Text](https://s8.gifyu.com/images/2020-10-25-15-46-53.gif)
 
