@@ -19,6 +19,17 @@ Heya! Here are the beautiful python progress bar and typewriter!
 - [ ] async logging, that is sending messages whilst the progress bar is filling;
 - [ ] keywords for each possible color.
 
+```console
+# clone the repo
+$ git clone https://github.com/psoglav/progrez.git
+
+# change the working directory to progrez
+$ cd progrez
+
+# install
+$ python3 setup.py
+```
+
 ### Here is what you need to know before creating the progress bar
 There are a few keywords to form the structure of a progress bar.
 
