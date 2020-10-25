@@ -14,11 +14,6 @@ Heya! Here are the beautiful python progress bar and typewriter!
 	* typing frequency or frame per second (FPS);
 	* coloring.
 
-### This is what planned before next release
-- [ ] opportunity to create several progress bars which will be working at the same time;
-- [ ] async logging, that is sending messages whilst the progress bar is filling;
-- [ ] keywords for each possible color.
-
 ```console
 # clone the repo
 $ git clone https://github.com/psoglav/progrez.git
@@ -29,6 +24,11 @@ $ cd progrez
 # install
 $ python3 setup.py
 ```
+
+### This is what planned before next release
+- [ ] opportunity to create several progress bars which will be working at the same time;
+- [ ] async logging, that is sending messages whilst the progress bar is filling;
+- [ ] keywords for each possible color.
 
 ### Here is what you need to know before creating the progress bar
 There are a few keywords to form the structure of a progress bar.
