@@ -36,7 +36,7 @@ There are a few keywords to form the structure of a progress bar.
 Keyword | Meaning
 ------------ | -------------
 $progess$ | the bar itself.
-$loaderN$ | a loader whose appearance may be created by an user. *(It may require an index of the loader, identified by the letter N)*
+$loaderN$ | the loader, appearance of which may be created by a user. *(It may require an index of the loader, identified by the letter N)*
 $percentage$ | a percentage of done work.
 $paintN$ | starts painting. *(It may require an index of the paint, identified by the letter N)*
 $erase$ | stops painting.
