@@ -1,11 +1,9 @@
 import os
 import sys
-import math
 import time
 import signal
 import threading
 from time import sleep
-from sys import stdout
 
 import re
 import term
