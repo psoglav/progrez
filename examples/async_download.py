@@ -7,9 +7,8 @@ from progrez.typewriter import Typewriter
 response = requests.get('http://elementsofprogramming.com/eop.pdf', stream=True)
 
 ### SETTING UP THE BAR
-bar = Progrez('$percentage$% [$paint$$progress$$erase$] Downloading data $data$ $loader$', 
+bar = Progrez('$percentage$% [$paint$$progress$$erase$] Downloading the package $data$ $loader$', 
               total=int(response.headers['content-length']), 
-              disapear=False,
               bar_width=30)
 bar.change_bar_appearance('■▪▫', left_border='', right_border='')
 bar.add_painter([14, 6, 4, 7], pulse=1)

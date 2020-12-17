@@ -1,13 +1,14 @@
-import os
 import sys
 import time
 import signal
 import threading
 from time import sleep
+from shutil import get_terminal_size
 
 import re
 import term
 import colored
+
 
 class Progrez(threading.Thread):
     PAINT = 'paint'
@@ -57,8 +58,6 @@ class Progrez(threading.Thread):
             else:
                 return 0
 
-
-
     class __Loader(_Framerate):
         def __init__(self, frames=['    ', '   <', '  <<', ' <<<', '<<< ', '<<  ', '<   ']):
             Progrez._Framerate.__init__(self, 15)
@@ -73,23 +72,23 @@ class Progrez(threading.Thread):
             else:
                 return 'NO_FRAMES'
 
-
     class __Painter(_Framerate):
         def __init__(self, colors, done_colors, index, rainbow, pulse, reverse):
             self.index = index
 
-            if not colors: # colors by default
+            if not colors:  # colors by default
                 if rainbow:
                     self.colors = [13, 9, 11, 10, 14, 12]
                 elif pulse:
-                    self.colors = [15, 14, 15, 15, 15, 14, 15, 15, 14, 15, 14, 14, 14, 14, 15]
+                    self.colors = [15, 14, 15, 15, 15, 14,
+                                   15, 15, 14, 15, 14, 14, 14, 14, 15]
                 else:
                     self.colors = [1]
             else:
                 self.colors = colors
 
             Progrez._Framerate.__init__(self, 15)
-            self.marvelous = (0, 1 if rainbow else 2) [pulse ^ rainbow]
+            self.marvelous = (0, 1 if rainbow else 2)[pulse ^ rainbow]
             self.fluid_colors = []
             self.reverse = reverse
             self.done_colors = done_colors
@@ -99,7 +98,8 @@ class Progrez(threading.Thread):
 
             def split():
                 start = re.split(kw, s, 1)
-                end = [el for el in re.split(f'(\\${Progrez.PAINT}\\d*\\$)|(\\${Progrez.ERASE}\\$)', start[1], 1) if isinstance(el, str)]
+                end = [el for el in re.split(
+                    f'(\\${Progrez.PAINT}\\d*\\$)|(\\${Progrez.ERASE}\\$)', start[1], 1) if isinstance(el, str)]
 
                 return [start[0], end[0], *end[1::]]
 
@@ -110,9 +110,11 @@ class Progrez(threading.Thread):
 
             def shift():
                 if not self.reverse:
-                    self.fluid_colors = [self.fluid_colors.pop(-1)] + self.fluid_colors
+                    self.fluid_colors = [
+                        self.fluid_colors.pop(-1)] + self.fluid_colors
                 else:
-                    self.fluid_colors = self.fluid_colors + [self.fluid_colors.pop(0)]
+                    self.fluid_colors = self.fluid_colors + \
+                        [self.fluid_colors.pop(0)]
 
             def rainbow():
                 if not self.fluid_colors:
@@ -140,7 +142,8 @@ class Progrez(threading.Thread):
 
                 if not self.fluid_colors:
                     cc = self.colors.copy()
-                    self.fluid_colors = [cc[-1] for i in range(length)] + [cc.pop(0) for _ in range(len(cc) - 1)]
+                    self.fluid_colors = [
+                        cc[-1] for i in range(length)] + [cc.pop(0) for _ in range(len(cc) - 1)]
                 else:
                     shift()
 
@@ -152,7 +155,8 @@ class Progrez(threading.Thread):
                 painted = ''
 
                 for char in prepared:
-                    painted += colored.fg(cc.pop(0) if len(cc) > 1 else cc[0]) + char
+                    painted += colored.fg(cc.pop(0) if len(cc)
+                                          > 1 else cc[0]) + char
 
                 painted += colored.fg(7)
 
@@ -163,18 +167,19 @@ class Progrez(threading.Thread):
                     return paint(self.done_colors)
 
                 if self.marvelous == 1:
-                    if self.next: rainbow()
+                    if self.next:
+                        rainbow()
 
                     return paint(self.fluid_colors)
                 elif self.marvelous == 2:
-                    if self.next: pulse()
+                    if self.next:
+                        pulse()
 
                     return paint(self.fluid_colors)
                 else:
                     return paint(self.colors)
 
             return s
-
 
     def __init__(self, structure, bar_width=15, total=100, disapear=True, blink=False, data_unit=''):
         threading.Thread.__init__(self)
@@ -192,9 +197,9 @@ class Progrez(threading.Thread):
         self.__disapear = disapear
         self.__bar_width = bar_width
         self.__bar_appearance = {
-            'left_border':'[',
-            'right_border':']',
-            'inside':'■▪▫'
+            'left_border': '[',
+            'right_border': ']',
+            'inside': '■▪▫'
         }
 
         # progress
@@ -202,10 +207,12 @@ class Progrez(threading.Thread):
         self.__current = 0
         self.__download_speed = []
         self.__ads = 0
-        self.__ads_frequency = Progrez._Framerate(1) # for average download speed
+        self.__ads_frequency = Progrez._Framerate(
+            1)  # for average download speed
 
         # switch
         self.__entity_update = True
+        self.__first_update = True
         self.__last_update = False
         self.__up_stream = False
 
@@ -227,36 +234,42 @@ class Progrez(threading.Thread):
         return items
 
     def update(self, value=0):
-        if not self.__up_stream: self.start()
+        if not self.__up_stream:
+            self.start()
 
         self.__previus_progress = self.__current
-        self.__current = (self.total, value) [value <= self.total]
-        self.__download_speed.append(self.__current - self.__previus_progress) # doesnt work properly
+        self.__current = (self.total, value)[value <= self.total]
+        self.__download_speed.append(
+            self.__current - self.__previus_progress)  # doesnt work properly
 
-        if self.full: self.stop()
+        if self.full:
+            self.stop()
 
     def next(self, value=1):
         self.update(self.__current + value)
 
     def rebuild_structure(self, new):
-        self.__structure = list(filter(None, re.split(r'(\$[a-z0-9]+\$)', new)))
+        self.__structure = list(
+            filter(None, re.split(r'(\$[a-z0-9]+\$)', new)))
 
     def add_loader(self, frames):
         self.__loaders += [Progrez.__Loader(frames)]
 
     def add_painter(self, colors=[], done_colors=[7], rainbow=False, pulse=False, reverse=False):
         colors = colors if not isinstance(colors, int) else [colors]
-        done_colors = done_colors if not isinstance(done_colors, int) else [done_colors]
+        done_colors = done_colors if not isinstance(
+            done_colors, int) else [done_colors]
 
-        self.__painters += [Progrez.__Painter(colors, done_colors, len(self.__painters), rainbow, pulse, reverse)]
+        self.__painters += [Progrez.__Painter(
+            colors, done_colors, len(self.__painters), rainbow, pulse, reverse)]
 
     def change_bar_appearance(self, inside, **kwargs):
         if 'left_border' in kwargs:
-            self.__bar_appearance = {'left_border':''}
+            self.__bar_appearance = {'left_border': ''}
         if 'right_border' in kwargs:
-            self.__bar_appearance = {'right_border':''}
+            self.__bar_appearance = {'right_border': ''}
 
-        kwargs.update({'inside':inside})
+        kwargs.update({'inside': inside})
         self.__bar_appearance.update(kwargs)
 
     def __progress(self):
@@ -270,10 +283,11 @@ class Progrez(threading.Thread):
         inside = fill + caret + empty
         p = self.percentage(bw + len(caret))
 
-        return b['left_border'] + inside[bw+len(caret)-p : bw*2+len(caret)-p] + b['right_border']
+        return b['left_border'] + inside[bw+len(caret)-p: bw*2+len(caret)-p] + b['right_border']
 
     def __data(self):
-        current = self.__format_data(self.__current, use_unit=False, regarding_the=self.total)
+        current = self.__format_data(
+            self.__current, use_unit=False, regarding_the=self.total)
         total = self.__format_data(self.total)
 
         return (f'{current}/' if not self.full else '') + f'{total}'
@@ -298,7 +312,8 @@ class Progrez(threading.Thread):
 
     def download_speed(self):
         if self.__ads_frequency.next and self.__download_speed:
-            self.__ads = sum(self.__download_speed) // len(self.__download_speed)
+            self.__ads = sum(
+                self.__download_speed) // len(self.__download_speed)
             self.__download_speed = []
 
         speed = self.__format_data(self.__ads)
@@ -325,26 +340,25 @@ class Progrez(threading.Thread):
         e = ''
         painters = []
 
-        for s in self.__structure: # translation
+        for s in self.__structure:  # translation
             keyword = self.__is_keyword(s)
 
             if keyword:
                 if keyword in [Progrez.LOADER, Progrez.PAINT, Progrez.ERASE]:
-                    if self.__last_update and keyword == Progrez.LOADER: # removing loader when progrez is finished
+                    if self.__last_update and keyword == Progrez.LOADER:  # removing loader when progrez is finished
                         continue
                     elif keyword == Progrez.ERASE:
                         e += s
                         continue
 
                     index = re.findall(r'\d+', s)
-                    answer = self.__keywords[keyword](int(index[0])) if index else self.__keywords[keyword]()
+                    answer = self.__keywords[keyword](
+                        int(index[0])) if index else self.__keywords[keyword]()
 
                     if not answer:
                         self.__error = f"You don't have any {keyword} number {index[0]}."
-
                     elif isinstance(answer, Progrez.__Loader):
                         e += answer.entity()
-
                     elif isinstance(answer, Progrez.__Painter):
                         painters.append(answer)
                         e += s
@@ -361,14 +375,15 @@ class Progrez(threading.Thread):
 
         e = self.__paint(e, painters)
 
-        if self.__previous_entity != e: # to avoid extra updates
+        if self.__previous_entity != e:  # to avoid extra updates
             self.__previous_entity = e
             self.__entity_update = True
 
-        return (e, self.__error) [bool(self.__error)] # return error if we've reached this point
+        # return error if we've reached this point
+        return (e, self.__error)[bool(self.__error)]
 
     def __is_keyword(self, s):
-        if s [0] == '$' and s [-1] == '$':
+        if s[0] == '$' and s[-1] == '$':
             return s.strip('$1234567890')
         else:
             return ''
@@ -399,16 +414,25 @@ class Progrez(threading.Thread):
             self.__print(e)
             self.__entity_update = False
 
-    def __print(self, s):
-        term.clearLine()
+    @staticmethod
+    def escape_ansi(s):
+        ansi_escape = re.compile(r'(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]')
+
+        return ansi_escape.sub('', s)
+
+    def __print(self, s):  # prints the bar
+        if self.__first_update:
+            term.down()
 
         if not self.__last_update or not self.__blink:
-            term.writeLine(s)
-            term.up()
+            delta = ((get_terminal_size()[0] - len(Progrez.escape_ansi(s))) * ' ')
+            print('\033[A' + s + delta)
 
         else:
+            term.up()
+            term.clearLine()
             colors = re.findall(r'\[38;5;(\d+)m', s)
-            store_colors = [] # without duplicates
+            store_colors = []  # without duplicates
 
             for c in colors:
                 if c not in store_colors:
@@ -425,6 +449,8 @@ class Progrez(threading.Thread):
                 term.writeLine(ss, term.black if clear else term.white)
                 term.up()
                 sleep(0.06)
+            
+        self.__first_update = False
 
     def __finish(self):
         if self.__disapear:

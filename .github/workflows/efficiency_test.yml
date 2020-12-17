@@ -25,9 +25,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-venv-
       - run: python -m venv ./.venv && . ./.venv/bin/activate && 
-            pip install -r requirements.txt && python setup.py install
+            pip install -r requirements.txt
         if: steps.cache-venv.outputs.cache-hit != 'true'
       
+      - name: Setup Installation
+        run: . ./.venv/bin/activate && python setup.py install
       - name: First Example
         run: . ./.venv/bin/activate && python examples/structure.py
       - name: Second Example

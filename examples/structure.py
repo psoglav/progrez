@@ -8,7 +8,7 @@ from progrez.color import Color
 
 os.system('cls' if os.name == 'nt' else 'clear')
 
-Typewriter.write('Welcome to the Hell!', centered=1, matrix=1, bgcolor=4, fps=60, delay=1)
+Typewriter.write('Welcome to the Hell!', centered=1, matrix=1, bgcolor=4, fps=70, delay=1)
 print()
 
 ### SETUP STARTS ###
@@ -61,4 +61,4 @@ while not bar3.full:
 ### ENDS ###
 
 print()
-Typewriter.write('And you have finally become one of hellfire membership!', centered=1, matrix=1, bgcolor=4, fps=60)
+Typewriter.write('And you have finally become one of hellfire membership!', centered=1, matrix=1, bgcolor=4, fps=70)
