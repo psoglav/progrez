@@ -1,5 +1,5 @@
 # :globe_with_meridians: Progrez
-Heya! I present you the beautiful progress bar and the typewriter!
+Heya! I present you the prettiest progress bar and the typewriter!
 
 ![Alt Text](https://s8.gifyu.com/images/1456fd02f849470f8.gif)
 
