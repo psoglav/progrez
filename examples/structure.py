@@ -1,6 +1,5 @@
 import os
 import random
-import requests
 from time import sleep
 
 from progrez.progrez import Progrez
