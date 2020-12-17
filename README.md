@@ -10,7 +10,7 @@ Heya! I'm presenting you the prettiest progress bar and the typewriter!
 	* some color animations	such as a rainbow :rainbow: and pulse :comet:;
 	* user color sequences.
 * **Typewriter**
-	* matrix animation (supposed to be in exactly one empty line);
+	* matrix animation (for now supposed to be in exactly one empty line);
 	* typing frequency or frame per second (FPS);
 	* coloring.
 
