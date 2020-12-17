@@ -1,7 +1,7 @@
 # :globe_with_meridians: Progrez
 Heya! I present you the beautiful progress bar and the typewriter!
 
-![Alt Text](https://s8.gifyu.com/images/2020-10-25-15-46-53.gif)
+![Alt Text](https://s8.gifyu.com/images/1456fd02f849470f8.gif)
 
 ## The module includes following features
 * **Progrez**
