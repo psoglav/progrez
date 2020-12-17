@@ -22,7 +22,7 @@ $ git clone https://github.com/psoglav/progrez.git
 $ cd progrez
 
 # install
-$ python3 setup.py
+$ python3 setup.py install
 ```
 
 ### This is what planned before next release
